@@ -1,6 +1,7 @@
 import { CSSObject, styled, Theme } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import Link from 'next/link';
+import { Box, IconButton } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -26,6 +27,8 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
+  position: 'absolute',
+  bottom: 0,
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -59,5 +62,22 @@ export const StyledLink = styled(Link)<{ open: boolean }>(({ theme, ...props }) 
     '& .MuiListItemIcon-root': {
       marginLeft: 20,
     },
+    zIndex: 12
   };
 });
+
+export const Container = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  '& .MuiDrawer-paper': {
+    position: 'relative',
+  },
+}))
+
+export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
+  width: 40,
+  height: 40,
+  display: 'none',
+  [theme.breakpoints.up(500)]: {
+    display: 'block',
+  },
+}))

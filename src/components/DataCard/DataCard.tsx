@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import Popover from '@/components/Popper/Popper';
-import { Header, PaperContainer } from '@/components/DataCard/styles';
+import { Header, PaperContainer, Span } from '@/components/DataCard/styles';
 
 interface DataCardProps {
   title: string;
@@ -17,7 +17,7 @@ const DataCard: React.FC<DataCardProps> = ({ title, descriptions, value }) => {
         <Box>{title}</Box>
         <Popover>{descriptions}</Popover>
       </Header>
-      <Box sx={{ textAlign: 'center' }}>{value}</Box>
+      <Span>{value}</Span>
     </PaperContainer>
   );
 };

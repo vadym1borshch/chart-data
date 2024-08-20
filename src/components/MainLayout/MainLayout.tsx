@@ -30,11 +30,12 @@ const MainLayout: React.FC<MainLayout> = ({ children }) => {
           gridTemplateRows="80px 1fr"
           height="100vh"
           width="100%"
+          zIndex={2}
         >
           <Header />
           <Box sx={{ display: 'flex' }}>
             <SideBar />
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3, width: '100%' }}>
               {children}
             </Box>
           </Box>

@@ -1,5 +1,7 @@
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import { pieChartData } from '@/app/dashboard/mock';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 export const DashboardContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -21,5 +23,30 @@ export const ChartWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-
 }));
+
+export const PieChartContainer = styled(Box)<{ width: any }>(
+  ({ theme, ...props }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    width: `${props.width}%`,
+    [theme.breakpoints.down(615)]: {
+      flexWrap: 'wrap',
+    },
+  })
+);
+export const PieChartWrapper = styled(Box)<{ width: number; dataLength: number }>(
+  ({ theme, ...props }) => ({
+    width: `${props.width / props.dataLength}%`,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    [theme.breakpoints.down(615)]: {
+      width: '100%',
+    },
+  })
+);
+
+
+

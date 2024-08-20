@@ -17,3 +17,7 @@ export const Header = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   gap: '5px',
 }))
+
+export const Span = styled("span")(({ theme }) => ({
+  textAlign: 'center'
+}))

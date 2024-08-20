@@ -9,9 +9,10 @@ import { Descriptions } from '@/components/Popper/styles';
 
 interface IPopoverProps {
   children: ReactNode;
+  Icon?: ReactNode;
 }
 
-const Popover: FC<IPopoverProps> = ({ children }) => {
+const Popover: FC<IPopoverProps> = ({ children, Icon }) => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -24,18 +25,18 @@ const Popover: FC<IPopoverProps> = ({ children }) => {
   const id = canBeOpen ? 'transition-popper' : undefined;
 
   return (
-    <Box>
+    <Box >
       <IconButton
         aria-describedby={id}
         type="button"
         onMouseEnter={hoverHandler}
         onMouseLeave={hoverHandler}
       >
-        <InfoIcon />
+        {Icon ? Icon : <InfoIcon />}
       </IconButton>
-      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+      <Popper id={id} open={open} anchorEl={anchorEl} transition sx={{zIndex: 9999}}>
         {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
+          <Fade {...TransitionProps} timeout={350} >
             <Descriptions>{children}</Descriptions>
           </Fade>
         )}

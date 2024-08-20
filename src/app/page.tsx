@@ -1,38 +1,61 @@
-import React from 'react';
-import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Box, useTheme } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import { columns, rows } from '@/app/mock';
+
 
 export default function Home() {
+  const theme = useTheme();
+  const [resizeTrigger, setResizeTrigger] = useState(0);
+  const [columnVisibilityModel, setColumnVisibilityModel] = useState({
+    firstName: true,
+    lastName: true,
+  });
+  useEffect(() => {
+    const handleResize = () => {
+      setResizeTrigger((prev) => prev + 1);
+      setColumnVisibilityModel({
+        firstName: window.innerWidth > 600,
+        lastName: window.innerWidth > 600,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <Box>
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus
-        non enim praesent elementum facilisis leo vel. Risus at ultrices mi
-        tempus imperdiet. Semper risus in hendrerit gravida rutrum quisque non
-        tellus. Convallis convallis tellus id interdum velit laoreet id donec
-        ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl
-        suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod
-        quis viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet
-        proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras
-        tincidunt lobortis feugiat vivamus at augue. At augue eget arcu dictum
-        varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt.
-        Lorem donec massa sapien faucibus et molestie ac.
-      </Typography>
-      <Typography paragraph>
-        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-        ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar elementum
-        integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi
-        lacus sed viverra tellus. Purus sit amet volutpat consequat mauris.
-        Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-        vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra
-        accumsan in. In hendrerit gravida rutrum quisque non tellus orci ac.
-        Pellentesque nec nam aliquam sem et tortor. Habitant morbi tristique
-        senectus et. Adipiscing elit duis tristique sollicitudin nibh sit.
-        Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra
-        maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
-        aliquam ultrices sagittis orci a.
-      </Typography>
+    <Box sx={{ height: 400, overflowX: 'auto', display: 'flex' }}>
+      <DataGrid
+        sx={{
+          backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
+          color: theme.palette.mode === 'dark' ? '#fff' : '#000',
+          '--DataGrid-containerBackground': 'transparent',
+          '& .MuiDataGrid-columnHeaders': {
+            backgroundColor:
+              theme.palette.mode === 'dark' ? '#FF5733' : '#33C8FF',
+            color: theme.palette.mode === 'dark' ? '#fff' : '#000',
+          },
+        }}
+        key={resizeTrigger}
+        rows={rows}
+        columns={columns}
+        columnVisibilityModel={columnVisibilityModel}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
     </Box>
   );
 }
